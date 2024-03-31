@@ -1,8 +1,6 @@
 // import { useEffect } from 'react';
-import { useState } from 'react';
 import PropTypes from 'prop-types';
-import { useEffect } from 'react';
-
+import usePosts from './hooks/usePosts';
 function Post({ title, content }) {
   return (
     <div>
@@ -21,19 +19,11 @@ Post.propTypes = {
 };
 
 function Blog() {
-  const [posts, setPosts] = useState(null);
-  const [isLoading, setIsLoading] = useState(true);
-  useEffect(() => {
-    fetch('http://localhost:3000/posts', { mode: 'cors' })
-      .then((response) => response.json())
-      .then((response) => {
-        setPosts(response);
-        setIsLoading(false);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-  }, []);
+  // Use custom hook to fetch posts
+  const { data: posts, error, loading } = usePosts();
+
+  if (loading) return <div>Loading...</div>;
+  if (error) return <p>{error.message}</p>;
 
   return (
     <>
@@ -46,7 +36,6 @@ function Blog() {
             content={post.content}
           />
         ))}
-      {isLoading && <div>Loading...</div>}
     </>
   );
 }
