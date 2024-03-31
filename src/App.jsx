@@ -1,15 +1,12 @@
 import './App.css';
-import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-// Imports routes
-import routes from './routes/routes';
-
-const router = createBrowserRouter(routes);
-
+import { Outlet } from 'react-router-dom';
 function App() {
   return (
     <>
-      <h1>Hello world</h1>
-      <RouterProvider router={router} />
+      <h1>Welcome to My Blog</h1>
+      <div>
+        <Outlet />
+      </div>
     </>
   );
 }
