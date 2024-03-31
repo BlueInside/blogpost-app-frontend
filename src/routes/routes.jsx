@@ -1,21 +1,15 @@
-import { Link } from 'react-router-dom';
+import App from '../App';
 
 const routes = [
   {
     path: '/',
-    element: (
-      <>
-        <Link to={'post'}>Posts</Link>
-      </>
-    ),
-  },
-  {
-    path: 'post',
-    element: (
-      <>
-        <Link to={'/'}>MainPage</Link>
-      </>
-    ),
+    element: <App />,
+    children: [
+      {
+        path: 'posts',
+        element: <h2>Posts</h2>,
+      },
+    ],
   },
 ];
 
