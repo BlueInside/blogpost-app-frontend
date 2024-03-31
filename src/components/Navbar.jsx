@@ -4,7 +4,9 @@ function Navbar() {
   return (
     <div>
       <ul>
-        <li>Karol Pulawski</li>
+        <li>
+          <Link to={'about-me'}>Karol Pulawski</Link>
+        </li>
         <li>
           <Link to={'blog'}>Blog</Link>
         </li>
