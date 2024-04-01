@@ -1,0 +1,30 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`__default_name_ 1`] = `
+<div>
+  <article
+    role="post"
+  >
+    <h2>
+      Post 1
+    </h2>
+    <div>
+      <p>
+        Text of post 1
+      </p>
+    </div>
+  </article>
+  <article
+    role="post"
+  >
+    <h2>
+      Post 2
+    </h2>
+    <div>
+      <p>
+        Text of post 2
+      </p>
+    </div>
+  </article>
+</div>
+`;
