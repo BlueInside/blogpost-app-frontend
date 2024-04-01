@@ -30,7 +30,7 @@ function Blog() {
       {posts &&
         posts.map((post) => (
           <Post
-            key={post.id}
+            key={post._id}
             id={post.id}
             title={post.title}
             content={post.content}
