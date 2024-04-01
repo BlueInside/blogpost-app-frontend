@@ -3,12 +3,12 @@ import PropTypes from 'prop-types';
 import usePosts from './hooks/usePosts';
 function Post({ title, content }) {
   return (
-    <div>
+    <article role="post">
       <h2>{title}</h2>
       <div>
         <p>{content}</p>
       </div>
-    </div>
+    </article>
   );
 }
 
