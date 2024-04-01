@@ -10,13 +10,13 @@ let fakeFetchData = {
   ],
 };
 
-vi.mock('../components/hooks/usePosts', () => {
-  return {
-    default: () => fakeFetchData,
-  };
-});
-
 describe('Blog component', () => {
+  vi.mock('../components/hooks/usePosts', () => {
+    return {
+      default: () => fakeFetchData,
+    };
+  });
+
   it('Renders blog component properly', () => {
     const { container } = render(<Blog />);
     expect(container).toMatchSnapshot();
