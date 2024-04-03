@@ -9,7 +9,7 @@ export default function Post() {
     loading,
   } = usePosts(`http://localhost:3000/posts/${postId}`);
 
-  if (error) return <p>Error</p>;
+  if (error) throw new Error(error.message);
   if (loading) return <p>Loading...</p>;
   return (
     <div>
