@@ -1,5 +1,5 @@
 import { describe, it, vi } from 'vitest';
-import Blog from '../components/Blog';
+import Blog from '../routes/Blog';
 import { render, screen } from '@testing-library/react';
 import { expect } from 'chai';
 
