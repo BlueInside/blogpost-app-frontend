@@ -1,12 +1,12 @@
 import { useState, useEffect } from 'react';
 
-function usePosts() {
+function usePosts(url) {
   const [data, setData] = useState(null);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch('http://localhost:3000/posts', { mode: 'cors' })
+    fetch(url, { mode: 'cors' })
       .then((response) => {
         // If status > than 400 throw error
         if (response.status >= 400) {
@@ -22,7 +22,7 @@ function usePosts() {
         setError(error);
       })
       .finally(() => setLoading(false));
-  }, []);
+  }, [url]);
 
   return { data, error, loading };
 }
