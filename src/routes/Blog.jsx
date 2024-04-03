@@ -36,7 +36,7 @@ function Blog() {
   } = usePosts('http://localhost:3000/posts');
 
   if (loading) return <div>Loading...</div>;
-  if (error) return <p>{error.message}</p>;
+  if (error) throw new Error(error.message);
 
   return (
     <>
