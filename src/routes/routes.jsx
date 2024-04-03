@@ -1,8 +1,9 @@
 import App from './App';
 import Blog from './Blog';
 import About from './About';
-import PostDetail from '../components/PostDetail';
-import ErrorPage from './error';
+import ErrorPage from '../error';
+import PostDetail from './PostDetail';
+import { action as addCommentAction } from '../addComment';
 const routes = [
   {
     path: '/',
@@ -16,7 +17,11 @@ const routes = [
             path: 'blog',
             element: <Blog />,
           },
-          { path: 'post/:postId', element: <PostDetail /> },
+          {
+            path: 'post/:postId',
+            element: <PostDetail />,
+            children: [{ path: 'comments', action: addCommentAction }],
+          },
         ],
       },
     ],
