@@ -1,13 +1,14 @@
 import usePosts from '../components/hooks/usePosts';
 import { useParams } from 'react-router-dom';
 import PropTypes from 'prop-types';
-// import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { decodeHTMLEntities as decodeHE } from '../utils/decodeHTML';
 import { format } from 'date-fns';
 import { Form } from 'react-router-dom';
 import useComments from '../components/hooks/useComments';
 
 export default function Post() {
+  const [showComments, setShowComments] = useState(false);
   let { postId } = useParams();
   // Hook to fetch Post details
   const {
@@ -30,8 +31,16 @@ export default function Post() {
           <p>Author: {post.author.fullname}</p>
           <p>Published on: {post.formattedTimeStamp}</p>
           <p>Comments: {comments.length}</p>
-
+          <button
+            onClick={() => {
+              setShowComments(!showComments);
+            }}
+          >
+            {showComments ? 'Hide' : 'Display'} comments
+          </button>
+          {/* Display comments on button click and if there are comments */}
           {comments &&
+            showComments &&
             comments.map((comment) => (
               <Comment
                 key={comment._id}
@@ -41,6 +50,7 @@ export default function Post() {
               />
             ))}
         </div>
+        <h3>Add a comment:</h3>
         <Form action={`comments`} method="post">
           <p>
             <label
