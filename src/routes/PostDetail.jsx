@@ -9,15 +9,15 @@ import useComments from '../components/hooks/useComments';
 
 export default function Post() {
   let { postId } = useParams();
+  // Hook to fetch Post details
   const {
     data: post,
     error,
     loading,
   } = usePosts(`http://localhost:3000/posts/${postId}`);
 
+  // Hook that gets Post specific comments
   const comments = useComments({ postId });
-
-  console.log(comments);
 
   if (error) throw new Error(error.message);
   if (loading) return <p>Loading...</p>;
@@ -90,5 +90,5 @@ function Comment({ username, text, timeStamp }) {
 Comment.propTypes = {
   username: PropTypes.string,
   text: PropTypes.string,
-  timeStamp: PropTypes.instanceOf(Date),
+  timeStamp: PropTypes.string,
 };
