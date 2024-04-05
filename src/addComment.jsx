@@ -1,26 +1,33 @@
 import { redirect } from 'react-router-dom';
+
 export async function action({ request, params }) {
-  const formData = await request.formData();
-  const data = Object.fromEntries(formData);
-  console.log(data, params);
-  fetch(`http://localhost:3000/posts/${params.postId}/comments`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json', // Content type as JSON
-    },
-    body: JSON.stringify(data),
-  })
-    .then((response) => {
-      if (response.status >= 400) {
-        throw new Error('Network response error');
+  try {
+    const formData = await request.formData();
+    const data = Object.fromEntries(formData);
+    console.log(data, params);
+
+    const response = await fetch(
+      `http://localhost:3000/posts/${params.postId}/comments`,
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json', // Content type as JSON
+        },
+        body: JSON.stringify(data), // Format data into JSON
       }
-      return response.json();
-    })
-    .then((data) => {
-      console.log('Successfully created comment', data);
-    })
-    .catch((error) => {
-      console.log('Error', error);
-    });
-  return redirect(`/post/${params.postId}`);
+    );
+
+    if (response.status >= 400) {
+      throw new Error('Network response error');
+    }
+
+    const newComment = await response.json();
+    console.log('Successfully created comment', newComment);
+
+    // Redirect to the post detail page after the new comment is added
+    return redirect(`/post/${params.postId}`);
+  } catch (error) {
+    console.error('Error', error);
+    return redirect(`/post/${params.postId}`);
+  }
 }
