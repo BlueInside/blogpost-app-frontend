@@ -1,24 +1,23 @@
 import usePosts from '../components/hooks/usePosts';
-import { useParams } from 'react-router-dom';
+import { useParams, useLoaderData } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { useState } from 'react';
 import { decodeHTMLEntities as decodeHE } from '../utils/decodeHTML';
 import { format } from 'date-fns';
 import { Form } from 'react-router-dom';
-import useComments from '../components/hooks/useComments';
 
 export default function Post() {
   const [showComments, setShowComments] = useState(false);
+  const [inputs, setInputs] = useState({ username: '', text: '' });
+  const comments = useLoaderData();
   let { postId } = useParams();
+
   // Hook to fetch Post details
   const {
     data: post,
     error,
     loading,
   } = usePosts(`http://localhost:3000/posts/${postId}`);
-
-  // Hook that gets Post specific comments
-  const comments = useComments({ postId });
 
   if (error) throw new Error(error.message);
   if (loading) return <p>Loading...</p>;
@@ -51,7 +50,13 @@ export default function Post() {
             ))}
         </div>
         <h3>Add a comment:</h3>
-        <Form action={`comments`} method="post">
+        <Form
+          action={`comments`}
+          method="post"
+          onSubmit={() => {
+            setInputs({ username: '', text: '' });
+          }}
+        >
           <p>
             <label
               htmlFor="username"
@@ -63,6 +68,13 @@ export default function Post() {
               type="text"
               name="username"
               placeholder="Username"
+              value={inputs.username}
+              onChange={(e) => {
+                setInputs({
+                  ...inputs,
+                  [e.currentTarget.name]: e.currentTarget.value,
+                });
+              }}
             />
           </p>
           <p>
@@ -73,11 +85,18 @@ export default function Post() {
               cols="30"
               rows="10"
               placeholder="Comment..."
+              value={inputs.text}
+              onChange={(e) =>
+                setInputs({
+                  ...inputs,
+                  [e.currentTarget.name]: e.currentTarget.value,
+                })
+              }
               required
             ></textarea>
           </p>
           <p>
-            <button>Submit</button>
+            <button type="submit">Submit</button>
           </p>
         </Form>
       </div>
