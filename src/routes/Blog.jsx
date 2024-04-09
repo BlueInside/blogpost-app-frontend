@@ -45,14 +45,17 @@ function Blog() {
   return (
     <>
       {posts &&
-        posts.map((post) => (
-          <Post
-            key={post._id}
-            id={post._id}
-            title={post.title}
-            content={post.content}
-          />
-        ))}
+        posts.map((post) => {
+          if (post.isPublished)
+            return (
+              <Post
+                key={post._id}
+                id={post._id}
+                title={post.title}
+                content={post.content}
+              />
+            );
+        })}
     </>
   );
 }
