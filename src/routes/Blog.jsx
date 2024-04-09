@@ -37,7 +37,7 @@ function Blog() {
     data: posts,
     error,
     loading,
-  } = usePosts('http://localhost:3000/posts');
+  } = usePosts('https://blogpost-restapi.fly.dev/posts');
 
   if (loading) return <BigSpinner />;
   if (error) throw new Error(error.message);

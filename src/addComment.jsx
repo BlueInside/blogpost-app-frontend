@@ -7,7 +7,7 @@ export async function action({ request, params }) {
     console.log(data, params);
 
     const response = await fetch(
-      `http://localhost:3000/posts/${params.postId}/comments`,
+      `https://blogpost-restapi.fly.dev/posts/${params.postId}/comments`,
       {
         method: 'POST',
         headers: {

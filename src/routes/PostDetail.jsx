@@ -25,7 +25,7 @@ export default function Post() {
     data: post,
     error,
     loading,
-  } = usePosts(`http://localhost:3000/posts/${postId}`);
+  } = usePosts(`https://blogpost-restapi.fly.dev/posts/${postId}`);
 
   if (error) throw new Error(error.message);
   if (loading) return <BigSpinner />;
