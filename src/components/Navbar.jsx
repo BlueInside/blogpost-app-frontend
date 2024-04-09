@@ -1,17 +1,22 @@
-import { Link } from 'react-router-dom';
+import {
+  NavbarContainer,
+  NavbarList,
+  NavbarItem,
+  NavbarLink,
+} from './StyledComponents/Navbar.styled';
 
 function Navbar() {
   return (
-    <div>
-      <ul>
-        <li>
-          <Link to={'about-me'}>Karol Pulawski</Link>
-        </li>
-        <li>
-          <Link to={'blog'}>Blog</Link>
-        </li>
-      </ul>
-    </div>
+    <NavbarContainer>
+      <NavbarList>
+        <NavbarItem>
+          <NavbarLink to={'about-me'}>Karol Pulawski</NavbarLink>
+        </NavbarItem>
+        <NavbarItem>
+          <NavbarLink to={'blog'}>Blog</NavbarLink>
+        </NavbarItem>
+      </NavbarList>
+    </NavbarContainer>
   );
 }
 

@@ -5,6 +5,7 @@ import ErrorPage from '../error';
 import PostDetail from './PostDetail';
 import { action as addCommentAction } from '../addComment';
 import { loader as commentsLoader } from '../getComments';
+
 const routes = [
   {
     path: '/',

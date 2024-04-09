@@ -1,13 +1,18 @@
 import Navbar from '../components/Navbar';
 import { Outlet } from 'react-router-dom';
-
+import { ThemeProvider } from 'styled-components';
+import theme from '../components/StyledComponents/Theme.styled';
+import GlobalStyles from '../components/StyledComponents/Global.Style';
 function App() {
   return (
     <>
-      <Navbar />
-      <main>
-        <Outlet />
-      </main>
+      <ThemeProvider theme={theme}>
+        <GlobalStyles />
+        <Navbar />
+        <main>
+          <Outlet />
+        </main>
+      </ThemeProvider>
     </>
   );
 }

@@ -1,7 +1,34 @@
+import styled from 'styled-components';
+
+const StyledArticle = styled.article`
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+  line-height: 1.6;
+
+  h1 {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+  }
+
+  p {
+    margin-bottom: 15px;
+    font-size: 1.24rem;
+  }
+
+  p:last-child {
+    margin-bottom: 0;
+  }
+
+  br {
+    display: none;
+  }
+`;
+
 function About() {
   return (
     <>
-      <article>
+      <StyledArticle>
         <h1>My Journey: From Gaming Enthusiast to Web Developer</h1>
         <p>
           Hello, everyone! My name is Karol Pulawski, and I&apos;m excited to
@@ -65,7 +92,7 @@ function About() {
           <br />
           Karol Pulawski
         </p>
-      </article>
+      </StyledArticle>
     </>
   );
 }

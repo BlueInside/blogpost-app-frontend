@@ -2,22 +2,26 @@
 import PropTypes from 'prop-types';
 import usePosts from '../components/hooks/usePosts';
 import { useNavigate } from 'react-router-dom';
-
+import BigSpinner from '../components/BigSpinner';
+import {
+  PostContainer,
+  Title,
+  Content,
+} from '../components/StyledComponents/StyledComponents.styled';
+import { htmlDecode } from '../utils/decodeHTML';
 function Post({ id, title, content }) {
   const navigate = useNavigate();
 
   return (
-    <article
+    <PostContainer
       role="post"
       onClick={() => {
         navigate(`/post/${id}`);
       }}
     >
-      <h2>{title}</h2>
-      <div>
-        <p>{content}</p>
-      </div>
-    </article>
+      <Title>{title}</Title>
+      <Content>{htmlDecode(content)}</Content>
+    </PostContainer>
   );
 }
 
@@ -35,7 +39,7 @@ function Blog() {
     loading,
   } = usePosts('http://localhost:3000/posts');
 
-  if (loading) return <div>Loading...</div>;
+  if (loading) return <BigSpinner />;
   if (error) throw new Error(error.message);
 
   return (

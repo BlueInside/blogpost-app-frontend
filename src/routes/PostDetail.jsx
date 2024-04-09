@@ -2,10 +2,18 @@ import usePosts from '../components/hooks/usePosts';
 import { useParams, useLoaderData } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { useState } from 'react';
-import { decodeHTMLEntities as decodeHE } from '../utils/decodeHTML';
+import { htmlDecode } from '../utils/decodeHTML';
 import { format } from 'date-fns';
 import { Form } from 'react-router-dom';
-
+import BigSpinner from '../components/BigSpinner';
+import {
+  PostContainer,
+  Title,
+  MetadataContainer,
+  MetadataItem,
+  Content,
+  ContentText,
+} from '../components/StyledComponents/PostDetails.styled';
 export default function Post() {
   const [showComments, setShowComments] = useState(false);
   const [inputs, setInputs] = useState({ username: '', text: '' });
@@ -20,35 +28,40 @@ export default function Post() {
   } = usePosts(`http://localhost:3000/posts/${postId}`);
 
   if (error) throw new Error(error.message);
-  if (loading) return <p>Loading...</p>;
+  if (loading) return <BigSpinner />;
   return (
-    <div>
+    <PostContainer>
       <div>
-        <h2>{post.title}</h2>
-        <p>{post.content}</p>
-        <div>
-          <p>Author: {post.author.fullname}</p>
-          <p>Published on: {post.formattedTimeStamp}</p>
-          <p>Comments: {comments.length}</p>
-          <button
-            onClick={() => {
-              setShowComments(!showComments);
-            }}
-          >
-            {showComments ? 'Hide' : 'Display'} comments
-          </button>
-          {/* Display comments on button click and if there are comments */}
-          {comments &&
-            showComments &&
-            comments.map((comment) => (
-              <Comment
-                key={comment._id}
-                username={comment.username}
-                text={comment.text}
-                timeStamp={comment.timeStamp}
-              />
-            ))}
-        </div>
+        <Title>{post.title}</Title>
+        <MetadataContainer>
+          <MetadataItem>Author: {post.author.fullname}</MetadataItem>
+          <MetadataItem>Published on: {post.formattedTimeStamp}</MetadataItem>
+        </MetadataContainer>
+
+        <Content>
+          <ContentText>{htmlDecode(post.content)}</ContentText>
+        </Content>
+        <MetadataContainer>
+          <MetadataItem>Comments: {comments.length}</MetadataItem>
+        </MetadataContainer>
+        <button
+          onClick={() => {
+            setShowComments(!showComments);
+          }}
+        >
+          {showComments ? 'Hide' : 'Display'} comments
+        </button>
+        {/* Display comments on button click and if there are comments */}
+        {comments &&
+          showComments &&
+          comments.map((comment) => (
+            <Comment
+              key={comment._id}
+              username={comment.username}
+              text={comment.text}
+              timeStamp={comment.timeStamp}
+            />
+          ))}
         <h3>Add a comment:</h3>
         <Form
           action={`comments`}
@@ -100,18 +113,22 @@ export default function Post() {
           </p>
         </Form>
       </div>
-    </div>
+    </PostContainer>
   );
 }
 
 function Comment({ username, text, timeStamp }) {
   return (
     <div>
-      <div className="meta-data">
-        <h1>{username}</h1>
+      <hr />
+      <div
+        style={{ display: 'flex', alignItems: 'center' }}
+        className="meta-data"
+      >
+        <h2 style={{ flex: '1' }}>{username}: </h2>
         <span>{format(timeStamp, 'd MMM y')}</span>
       </div>
-      <p>{decodeHE(text)}</p>
+      <p>{htmlDecode(text)}</p>
     </div>
   );
 }
