@@ -22,11 +22,11 @@ export const NavbarLink = styled(NavLink)`
   color: #fff; /* Text color */
 
   &:hover {
-    color: ${(props) => props.theme.colors.primaryPink};
+    color: #ff00ea;
   }
 
   &.active {
-    color: ${(props) => props.theme.colors.primaryBlue};
+    color: #ff00ea;
   }
 
   &.pending {
