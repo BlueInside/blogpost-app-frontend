@@ -25,7 +25,9 @@ export default function Post() {
     data: post,
     error,
     loading,
-  } = usePosts(`https://blogpost-restapi.fly.dev/posts/${postId}`);
+  } = usePosts(
+    `https://blogpost-app-production.up.railway.app/posts/${postId}`
+  );
 
   if (error) throw new Error(error.message);
   if (loading) return <BigSpinner />;

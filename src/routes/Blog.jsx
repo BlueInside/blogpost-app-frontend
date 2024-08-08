@@ -37,7 +37,7 @@ function Blog() {
     data: posts,
     error,
     loading,
-  } = usePosts('https://blogpost-restapi.fly.dev/posts');
+  } = usePosts('https://blogpost-app-production.up.railway.app/posts');
 
   if (loading) return <BigSpinner />;
   if (error) throw new Error(error.message);
